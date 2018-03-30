@@ -4,6 +4,6 @@
     "version": "0.1.0",
     "command": "gcc",
     "isShellCommand": true,
-    "args": ["-g", "main.c", "common.c", "vocabulary.c", "fileAccess.c",  "-o", "sentiment-analysis-c.exe"],
+    "args": ["-g", "main.c", "common.c", "vocabulary.c", "fileAccess.c", "sentiment.c", "-o", "sentiment-analysis-c.exe"],
     "showOutput": "always"
 }

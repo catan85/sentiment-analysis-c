@@ -1,0 +1,1 @@
+int EvaluateStatement(char* statement);

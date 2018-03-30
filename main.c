@@ -3,8 +3,8 @@
 #include <string.h>
 #include "common.h"
 #include "vocabulary.h"
+#include "sentiment.h"
 
-#define delimiters  ";'-+/\\_<>|!., "
 #define vocabDelimiter "==>"
 
 int equalStrings(char* a, char* b);
@@ -68,18 +68,18 @@ int main()
             }
             free(destination);
             free(word);
-
             printf("Vocabolari aggiornati.\n");
+            printf("\n");
+            printf("\n");
         }else{
-            // Estrazione delle parole
-            char *word;
-            char *tokens = malloc(strlen(delimiters)+1);
-            strcpy(tokens, delimiters);
-            word = strtok(statement, tokens);
-            while (word != NULL) 
-            {
-                word = strtok(NULL, tokens);
-            }
+            int sentenceEvaluation = EvaluateStatement(statement);
+            printf("Valutazione della frase inserita: \n");
+            printf("%d",sentenceEvaluation);
+            printf("\n");
+            printf("[sentiment positivo valore > 0]\n");
+            printf("[sentiment negativo valore < 0]\n");
+            printf("\n");
+            printf("\n");
         }
 
         free(vocDelimTokens);
