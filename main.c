@@ -1,13 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "common.h"
+#include "vocabulary.h"
 
-void RemoveNewLineFromString(char* input);
-void AddLineToFile(char* line, char* filename);
+int equalStrings(char* a, char* b);
 
 int main()
 {
-
     char *buffer;
     size_t bufsize = 100;
     size_t characters;
@@ -21,53 +21,24 @@ int main()
 
     printf("Inserire una frase da valutare oppure codificare un inserimento nei dizionari (word==>[+/-/0])\n");
     characters = getline(&buffer,&bufsize,stdin);
-    printf("%d characters were read.\n", characters);
     RemoveNewLineFromString(buffer);
-    printf("You typed: '%s'\n",buffer);
+    printf("You typed:\n%s\n",buffer);
 
-    printf("Scrittura della frase su file");
+    // Inserzione nei dizionari
+    if (StringContains(buffer,"==>"))
+    {
 
-    char *testFileName;
-    strcpy(testFileName, "test.txt");
-    
-    AddLineToFile(buffer, testFileName);
-    AddLineToFile(buffer, testFileName);
-    AddLineToFile(buffer, testFileName);
+        AddWordToNegativeVocabulary(buffer);
 
+    // Valutazione della frase
+    }else{
+        printf("Nothing to do\n");
+    }
+
+    //AddWordToPositiveVocabulary(buffer);
+
+    //AddWordToIgnoreVocabulary(buffer);
     getchar();
 
     return(0);
-}
-
-
-void RemoveNewLineFromString(char* input)
-{
-    int chars = strlen(input);
-    chars = chars - 1;
-    if (input[chars] == '\n') {
-        input[chars] = '\0';
-    }
-}
-
-
-void AddLineToFile(char* line, char* filename)
-{
-
-    char* temp = (char*)    malloc(strlen(filename) + 1);
-    strcpy(temp, filename);
-    strcat(temp, ".tmp");
-
-    FILE *fileRead;
-    fileRead = fopen( filename , "r");
-
-    FILE *fileWrite;
-    fileWrite = fopen( temp, "w");
-
-
-    fputs(line, fileWrite);
-
-    
-    fclose(fileRead);
-    fclose(fileWrite);
-
 }

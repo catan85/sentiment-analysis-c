@@ -2,8 +2,8 @@
     // See https://go.microsoft.com/fwlink/?LinkId=733558
     // for the documentation about the tasks.json format
     "version": "0.1.0",
-    "command": "g++",
+    "command": "gcc",
     "isShellCommand": true,
-    "args": ["-g", "main.c", "-o", "sentiment-analysis-c.exe"],
+    "args": ["-g", "main.c", "common.c", "vocabulary.c", "fileAccess.c",  "-o", "sentiment-analysis-c.exe"],
     "showOutput": "always"
 }
