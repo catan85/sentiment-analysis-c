@@ -22,7 +22,10 @@ int EvaluateStatement(char * statement)
     while (word != NULL) 
     {
         word = strtok(NULL, tokens);
-        sentenceEvaluation += EvaluateWord(word);
+        if (word != NULL)
+        {
+            sentenceEvaluation += EvaluateWord(word);
+        }
     }
 
     return sentenceEvaluation;

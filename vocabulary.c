@@ -143,7 +143,7 @@ int VocabularyContains(char * word, char ** vocabulary)
         {
             return 1;
         }
-        if (vocabulary[i]== "")
+        if (strcmp(vocabulary[i], "")==0)
         {
             return 0;
         }

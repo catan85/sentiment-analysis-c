@@ -132,6 +132,7 @@ void LoadVocabularyToMemory(char ** vocabulary, int bufferSize, int lines,  char
         strcpy(vocabulary[lineIndex],currentLine);
         lineIndex++;
     }
+    
     strcpy(vocabulary[lineIndex], "");
     
     free(currentLine);
