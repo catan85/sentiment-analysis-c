@@ -33,9 +33,14 @@ int EvaluateStatement(char * statement)
 
 int EvaluateWord(char * word)
 {
-    int p,n,i = 0; 
-    p = PositiveVocabularyContains(word);
-    n = NegativeVocabularyContains(word);
-    i = IgnoreVocabularyContains(word);
+   
+    if (word != NULL)
+    {
+        WordEvaluation p,n,i; 
+        p = PositiveVocabularyEvaluation(word);
+        n = NegativeVocabularyEvaluation(word);
+        i = IgnoreVocabularyEvaluation(word);
+    }
+
     return 0;
 }

@@ -18,7 +18,7 @@ void AddToVocabulary(char * word, char * vocabularyFile);
 void RemoveFromVocabulary(char * word, char * vocabularyFile);
 int VocabularyFileContains(char * word, char * vocabularyFile);
 void AllocateMemoryToVocabulary(char ** vocabulary);
-int VocabularyContains(char * word, char ** vocabulary);
+WordEvaluation VocabolaryEvaluate(char * word, char ** vocabulary);
 
 
 // Functions to add words to vocabularies
@@ -78,7 +78,7 @@ void LoadAllVocabularies()
     LoadVocabularyToMemory(ignoreVocabulary, WORD_BUFFER, MAX_LINES, vocabularyPath);
 }
 
-
+/*
 int PositiveVocabularyFileContains(char * word)
 {
     return VocabularyFileContains(word, POSITIVE_VOCABULARY_PATH);
@@ -93,20 +93,40 @@ int IgnoreVocabularyFileContains(char * word)
 {
     return VocabularyFileContains(word, IGNORE_VOCABULARY_PATH);
 }
+*/
 
-int PositiveVocabularyContains(char * word)
+WordEvaluation PositiveVocabularyEvaluation(char * word)
 {
-    return VocabularyContains(word, positiveVocabulary);
+    return VocabolaryEvaluate(word, positiveVocabulary);
 }
 
-int NegativeVocabularyContains(char * word)
+WordEvaluation NegativeVocabularyEvaluation(char * word)
 {
-    return VocabularyContains(word, negativeVocabulary);
+    return VocabolaryEvaluate(word, negativeVocabulary);
 }
 
-int IgnoreVocabularyContains(char * word)
+WordEvaluation IgnoreVocabularyEvaluation(char * word)
 {
-    return VocabularyContains(word, ignoreVocabulary);
+    return VocabolaryEvaluate(word, ignoreVocabulary);
+}
+
+WordEvaluation VocabolaryEvaluate(char * word, char ** vocabulary)
+{
+    WordEvaluation val;
+    for (int i = 0; i < MAX_LINES; i++)
+    {
+        if (strcmp(word, vocabulary[i])==0)
+        {
+            val.matchRate = 100;
+            return val;
+        }
+        if (strcmp(vocabulary[i], "")==0)
+        {
+            val.matchRate = 0;
+            return val;
+        }
+    }
+    return val;
 }
 
 
@@ -125,7 +145,7 @@ void RemoveFromVocabulary(char * word, char * vocabularyFile)
     RemoveLineFromFile(word, vocabularyFile);
     free(destinationFile);
 }
-
+/*
 int VocabularyFileContains(char * word, char * vocabularyFile)
 {
     char * destinationFile = (char *) malloc(strlen(vocabularyFile)+1);
@@ -134,19 +154,6 @@ int VocabularyFileContains(char * word, char * vocabularyFile)
     free(destinationFile);
     return result;
 }
+*/
 
-int VocabularyContains(char * word, char ** vocabulary)
-{
-    for (int i = 0; i < MAX_LINES; i++)
-    {
-        if (strcmp(word, vocabulary[i])==0)
-        {
-            return 1;
-        }
-        if (strcmp(vocabulary[i], "")==0)
-        {
-            return 0;
-        }
-    }
-}
 
