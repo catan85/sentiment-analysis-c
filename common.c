@@ -1,5 +1,7 @@
 #include "common.h"
 #include <string.h>
+#include <stdlib.h>
+#include <stdio.h>
 
 void RemoveNewLineFromString(char* input)
 {
@@ -19,4 +21,3 @@ int StringContains(char * text, char * search)
         return 1;
     }
 }
-

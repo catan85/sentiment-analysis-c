@@ -36,7 +36,6 @@ void AddLineToFile(char* line, char* filename)
             fputs(currentLine, fileWrite);
             fputs("\n",fileWrite);
         }
-        printf("%s\n", currentLine);
     }
     free(currentLine);
 
@@ -76,7 +75,6 @@ void RemoveLineFromFile(char* line, char* filename)
             fputs(currentLine, fileWrite);
             fputs("\n",fileWrite);
         }
-        printf("%s\n", currentLine);
     }
     free(currentLine);
 
