@@ -1,10 +1,6 @@
+#define WORD_BUFFER 50
+#define MAX_LINES 100000
 
-typedef struct WordEvaluation
-{ 
-    char * word;
-    int rating;
-    double matchRate;
-} WordEvaluation;
 
 // Aggiunta e modifica di parole sui vocabolari
 void AddWordToPositiveVocabulary(char* word);
@@ -19,6 +15,6 @@ void LoadAllVocabularies();
 
 int NegationVocabularyContains(char * word);
 
-WordEvaluation PositiveVocabularyEvaluation(char * word);
-WordEvaluation NegativeVocabularyEvaluation(char * word);
-WordEvaluation IgnoreVocabularyEvaluation(char * word);
+extern char ** positiveVocabulary;
+extern char ** negativeVocabulary;
+extern char ** ignoreVocabulary;
