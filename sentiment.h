@@ -1,5 +1,4 @@
 
-
 typedef struct WordEvaluation
 { 
     char * word;
@@ -7,4 +6,4 @@ typedef struct WordEvaluation
     double matchRate;
 } WordEvaluation;
 
-int EvaluateStatement(char* statement);
+void LaunchSentimentAnalysis();

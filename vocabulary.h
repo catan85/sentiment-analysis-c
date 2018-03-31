@@ -1,15 +1,11 @@
 #define WORD_BUFFER 50
 #define MAX_LINES 100000
 
-
-// Aggiunta e modifica di parole sui vocabolari
-void AddWordToPositiveVocabulary(char* word);
-void AddWordToNegativeVocabulary(char* word);
-void AddWordToIgnoreVocabulary(char* word);
-
+void LaunchVocabularyEditing(char * statement, char * vocabEditSplitter);
 
 // Caricamento in memoria dei dizionari
 void LoadAllVocabularies();
+void FreeAllVocabularies();
 
 // valutazione parole da memoria
 

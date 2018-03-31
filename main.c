@@ -5,19 +5,26 @@
 #include "vocabulary.h"
 #include "sentiment.h"
 
-#define vocabDelimiter "==>"
+#define VOCAB_EDIT_KEY "==>"
+#define STATEMENT_BUFFER 255
 
 int equalStrings(char* a, char* b);
 
+void VocabularyEditing(char * statement, char * vocabEditSplitter);
+void SentimentAnalysis(char * statement);
+
 int main()
 {
+    // All'avvio si caricano tutti i vocabolari in memoria
+    LoadAllVocabularies();
+
     while(1)
     {
         char *statement;
-        size_t bufsize = 100;
         size_t characters;
+        size_t bufsize = STATEMENT_BUFFER;
 
-        statement = (char *)malloc(bufsize * sizeof(char));
+        statement = (char *)malloc(STATEMENT_BUFFER * sizeof(char));
         if( statement == NULL)
         {
             perror("Unable to allocate statement");
@@ -25,73 +32,32 @@ int main()
         }
 
         printf("Inserisci una frase / modifica un dizionario (sintassi: [parola]==>[+/-/0])\n");
-        characters = getline(&statement,&bufsize,stdin);
+        characters = getline(&statement, &bufsize, stdin);
         RemoveNewLineFromString(statement);
-        printf("Hai scritto:\n%s\n",statement);
-        printf("\n");
-        // Inserzione nei dizionari
-        char *vocDelimTokens = (char*)malloc(strlen(vocabDelimiter)+1);
-        strcpy(vocDelimTokens,vocabDelimiter);
-        if (StringContains(statement,vocDelimTokens))
+
+        char *vocabEditSplitter = (char*)malloc(strlen(VOCAB_EDIT_KEY)+1);
+        strcpy(vocabEditSplitter,VOCAB_EDIT_KEY);
+
+        // Se la frase contiene la stringa di editing (==>) allora esegue VocabularyEditing
+        if (StringContains(statement, vocabEditSplitter))
         {
-            // Estrazione delle parole
-            char *word = (char*)malloc(bufsize);
-            char *destination = (char*)malloc(2);
+            LaunchVocabularyEditing(statement, vocabEditSplitter);
 
-            char *current;
-            current = strtok(statement, vocDelimTokens);
-            strcpy(word,current);
-            int i = 0;
-            while (current != NULL) 
-            {
-                current = strtok(NULL, vocDelimTokens);
-                if (i==0)
-                {
-                    destination[0] = current[0];
-                    destination[1] = 0;
-                }
-                i++;
-            }
+            // A seguito della modica dei file dei vocabolari li ricarico in memoria
+            // Non lo faccio ad ogni frase per avere migliori performance.
+            // Prima di caricarli libero la loro memoria per evitare di continuare ad occuparne
+            // inutilmente
+            FreeAllVocabularies();
+            LoadAllVocabularies();
 
-            if (StringContains(destination,"+"))
-            {
-                printf("Adding to positive dictionary\n");
-                AddWordToPositiveVocabulary(word);
-            }else if(StringContains(destination, "-"))
-            {
-                printf("Adding to negative dictionary\n");
-                AddWordToNegativeVocabulary(word);
-            }else if(StringContains(destination, "0"))
-            {
-                printf("Adding to ignore dictionary\n");
-                AddWordToIgnoreVocabulary(word);
-            }
-            free(destination);
-            free(word);
-            printf("Vocabolari aggiornati.\n");
-            printf("\n\n");
-        
-        // Valutazione del sentiment della frase
+        // Se la stringa inserita non contiene la stringa di editing eseguiamo la sentiment analysis
         }else{
-            int sentenceEvaluation = EvaluateStatement(statement);
-            printf("\n\n");
-            printf("Valutazione della frase inserita: \n");
-            printf("%d\n\n",sentenceEvaluation);
-            if (sentenceEvaluation > 0)
-            {
-                printf("[Sentiment positivo  ]\n");
-            }else if (sentenceEvaluation == 0)
-            {
-                printf("[Sentiment neutro    ]\n");
-            }else{
-                printf("[Sentiment negativo  ]\n");
-            }
-            printf("\n\n");
-   
+            LaunchSentimentAnalysis(statement);
         }
 
-        free(vocDelimTokens);
+        free(vocabEditSplitter);
         free(statement);
     }
     return(0);
 }
+

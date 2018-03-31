@@ -1,8 +1,10 @@
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 #include "vocabulary.h"
 #include "fileAccess.h"
-
+#include "common.h"
+#define MEMORY_DEALLOCATION 1 // Se sono in debug la deallocazione è molto lenta, la lascio impostabile
 #define POSITIVE_VOCABULARY_PATH "./data/positive.txt"
 #define NEGATIVE_VOCABULARY_PATH "./data/negative.txt"
 #define IGNORE_VOCABULARY_PATH "./data/ignore.txt"
@@ -15,11 +17,63 @@ char ** negativeVocabulary;
 char ** ignoreVocabulary;
 char ** negationVocabulary;
 
+
+
+// Aggiunta e modifica di parole sui vocabolari
+void AddWordToPositiveVocabulary(char* word);
+void AddWordToNegativeVocabulary(char* word);
+void AddWordToIgnoreVocabulary(char* word);
 void AddToVocabulary(char * word, char * vocabularyFile);
 void RemoveFromVocabulary(char * word, char * vocabularyFile);
 int VocabularyFileContains(char * word, char * vocabularyFile);
-void AllocateMemoryToVocabulary(char ** vocabulary);
 int VocabularyContains(char * word, char ** vocabulary);
+
+void FreeVocabulary(char ** vocabulary);
+
+void LaunchVocabularyEditing(char * statement, char * vocabEditSplitter)
+{
+    // Inserzione nei dizionari
+
+    // Estrazione delle parole
+    char *word = (char*)malloc(WORD_BUFFER);
+    char *destination = (char*)malloc(2);
+    char *current;
+    current = strtok(statement, vocabEditSplitter);
+    int i = 0;
+    while (current != NULL) 
+    {
+        if (i==0)
+        {
+            strcpy(word,current);
+        }else if (i==1)
+        {
+            destination[0] = current[0];
+            destination[1] = 0;
+        }
+        i++;
+        current = strtok(NULL, vocabEditSplitter);
+    }
+
+    if (StringContains(destination,"+"))
+    {
+        printf("Adding to positive dictionary\n");
+        AddWordToPositiveVocabulary(word);
+    }else if(StringContains(destination, "-"))
+    {
+        printf("Adding to negative dictionary\n");
+        AddWordToNegativeVocabulary(word);
+    }else if(StringContains(destination, "0"))
+    {
+        printf("Adding to ignore dictionary\n");
+        AddWordToIgnoreVocabulary(word);
+    }
+    free(destination);
+    free(word);
+    printf("Vocabolari aggiornati.\n");
+    printf("\n\n");
+}
+
+
 
 // Functions to add words to vocabularies
 
@@ -46,7 +100,6 @@ void AddWordToIgnoreVocabulary(char * word)
 
 void LoadAllVocabularies()
 {
-
     // LOADING POSITIVE VOCABULARY
     positiveVocabulary = malloc(MAX_LINES * sizeof(char*));
     for (int i = 0; i < MAX_LINES; i++)
@@ -89,12 +142,30 @@ void LoadAllVocabularies()
     LoadVocabularyToMemory(negationVocabulary, WORD_BUFFER, MAX_LINES, vocabularyPath);
 }
 
+void FreeAllVocabularies()
+{
+    if (MEMORY_DEALLOCATION)
+    {
+        FreeVocabulary(positiveVocabulary);
+        FreeVocabulary(negativeVocabulary);
+        FreeVocabulary(ignoreVocabulary);
+        FreeVocabulary(negationVocabulary);
+    }
+}
+
+void FreeVocabulary(char ** vocabulary)
+{
+    for (int i = 0; i < MAX_LINES; i++)
+    {
+        free(vocabulary[i]);
+    }
+    free(vocabulary);
+}
 
 int NegationVocabularyContains(char * word)
 {
     VocabularyContains(word, negationVocabulary);
 }
-
 
 int VocabularyContains(char * word, char ** vocabulary)
 {

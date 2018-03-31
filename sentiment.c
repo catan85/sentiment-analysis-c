@@ -8,6 +8,8 @@
 #define MIN_RATIO 0.7
 #define delimiters  ";'-+/\\_<>|!., "
 
+
+int EvaluateStatement(char* statement);
 int EvaluateWord(char * word);
 
 WordEvaluation VocabolaryEvaluate(char * word, char ** vocabulary);
@@ -15,17 +17,33 @@ WordEvaluation PositiveVocabularyEvaluation(char * word);
 WordEvaluation NegativeVocabularyEvaluation(char * word);
 WordEvaluation IgnoreVocabularyEvaluation(char * word);
 
-
 void PrintTableHeader();
 void PrintWordEvaluation(WordEvaluation val, char * word, char * prefix);
+
+
+void LaunchSentimentAnalysis(char * statement)
+{
+    int sentenceEvaluation = EvaluateStatement(statement);
+    printf("\n\n");
+    printf("Valutazione della frase inserita: \n");
+    printf("%d\n\n",sentenceEvaluation);
+    if (sentenceEvaluation > 0)
+    {
+        printf("[Sentiment positivo  ]\n");
+    }else if (sentenceEvaluation == 0)
+    {
+        printf("[Sentiment neutro    ]\n");
+    }else{
+        printf("[Sentiment negativo  ]\n");
+    }
+    printf("\n\n");
+}
 
 int EvaluateStatement(char * statement)
 {
     int sentenceEvaluation = 0;
     int negationInStatement = 0;
 
-    LoadAllVocabularies();
-    
     PrintTableHeader();
 
     // Estrazione delle parole

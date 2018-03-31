@@ -459,7 +459,6 @@ bs
 fibbia
 insetto
 intercettazioni
-passeggino
 bug
 ingombranti
 voluminosità

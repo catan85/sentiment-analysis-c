@@ -1,3 +1,10 @@
+un
+una
+passeggiata
+passeggino
+ed
+ci
+palla
 stufa
 fare
 pare
@@ -5,9 +12,7 @@ esempio
 questi
 questa
 questo
-una
 uno
-un
 test
 con
 trovata
