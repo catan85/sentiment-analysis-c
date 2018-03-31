@@ -137,7 +137,7 @@ WordEvaluation VocabolaryEvaluate(char * word, char ** vocabulary)
         // se trovo una stringa molto lunga che inizia con una corrispondenza esatta (o quasi) va ignorata perchè la
         // parte successiva potrebbe cambiare significato alla parola
         if (correspondingChars > bestWordRating &&
-            (strlen(vocabulary[l]) * MIN_RATIO) < strlen(word))
+            (strlen(vocabulary[l]) * MIN_RATIO) < correspondingChars)
         {
             bestWordRating = correspondingChars;
             strcpy(bestWord, vocabulary[l]);
@@ -160,12 +160,12 @@ WordEvaluation VocabolaryEvaluate(char * word, char ** vocabulary)
     result.word = (char *) malloc(WORD_BUFFER);
 
     // la corrispondenza trovata deve avere almeno il 70% dei caratteri della parola cercata
-    if ((bestWordRating >= (strlen(word) * MIN_RATIO))) 
+    if ((bestWordRating > (strlen(word) * MIN_RATIO))) 
     {
         strcpy(result.word, bestWord);
         result.rating = bestWordRating;
         int maxLength = Max(strlen(bestWord), strlen(word));
-        result.matchRate = result.rating * 100 / maxLength;
+        result.matchRate = result.rating * 100.0 / maxLength;
     }
 
     return result;

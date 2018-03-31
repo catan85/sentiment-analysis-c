@@ -69,20 +69,25 @@ int main()
             free(destination);
             free(word);
             printf("Vocabolari aggiornati.\n");
-            printf("\n");
-            printf("\n");
+            printf("\n\n");
         
         // Valutazione del sentiment della frase
         }else{
             int sentenceEvaluation = EvaluateStatement(statement);
-            printf("\n");
+            printf("\n\n");
             printf("Valutazione della frase inserita: \n");
-            printf("%d",sentenceEvaluation);
-            printf("\n");
-            printf("[sentiment positivo valore > 0]\n");
-            printf("[sentiment negativo valore < 0]\n");
-            printf("\n");
-            printf("\n");
+            printf("%d\n\n",sentenceEvaluation);
+            if (sentenceEvaluation > 0)
+            {
+                printf("[Sentiment positivo  ]\n");
+            }else if (sentenceEvaluation == 0)
+            {
+                printf("[Sentiment neutro    ]\n");
+            }else{
+                printf("[Sentiment negativo  ]\n");
+            }
+            printf("\n\n");
+   
         }
 
         free(vocDelimTokens);
