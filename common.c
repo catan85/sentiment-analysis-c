@@ -21,3 +21,9 @@ int StringContains(char * text, char * search)
         return 1;
     }
 }
+
+int Max(int a, int b)
+{
+    if (a>=b){return a;}
+    if (b>a){return b;}
+}

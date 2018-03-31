@@ -28,7 +28,7 @@ int main()
         characters = getline(&statement,&bufsize,stdin);
         RemoveNewLineFromString(statement);
         printf("Hai scritto:\n%s\n",statement);
-
+        printf("\n");
         // Inserzione nei dizionari
         char *vocDelimTokens = (char*)malloc(strlen(vocabDelimiter)+1);
         strcpy(vocDelimTokens,vocabDelimiter);
@@ -71,8 +71,11 @@ int main()
             printf("Vocabolari aggiornati.\n");
             printf("\n");
             printf("\n");
+        
+        // Valutazione del sentiment della frase
         }else{
             int sentenceEvaluation = EvaluateStatement(statement);
+            printf("\n");
             printf("Valutazione della frase inserita: \n");
             printf("%d",sentenceEvaluation);
             printf("\n");

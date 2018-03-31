@@ -2,7 +2,7 @@
 typedef struct WordEvaluation
 { 
     char * word;
-    int correspondingChars;
+    int rating;
     double matchRate;
 } WordEvaluation;
 
@@ -12,16 +12,13 @@ void AddWordToNegativeVocabulary(char* word);
 void AddWordToIgnoreVocabulary(char* word);
 
 
-// ricerca parola da file
-/*
-int PositiveVocabularyFileContains(char * word);
-int NegativeVocabularyFileContains(char * word);
-int IgnoreVocabularyFileContains(char * word);
-*/
 // Caricamento in memoria dei dizionari
 void LoadAllVocabularies();
 
 // valutazione parole da memoria
+
+int NegationVocabularyContains(char * word);
+
 WordEvaluation PositiveVocabularyEvaluation(char * word);
 WordEvaluation NegativeVocabularyEvaluation(char * word);
 WordEvaluation IgnoreVocabularyEvaluation(char * word);

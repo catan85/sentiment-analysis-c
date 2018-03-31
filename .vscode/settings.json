@@ -2,6 +2,7 @@
     "files.associations": {
         "stdio.h": "c",
         "string.h": "c",
-        "common.h": "c"
+        "common.h": "c",
+        "limits": "c"
     }
 }
