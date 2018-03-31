@@ -25,7 +25,7 @@ void LaunchSentimentAnalysis(char * statement)
 {
     int sentenceEvaluation = EvaluateStatement(statement);
     printf("\n\n");
-    printf("Valutazione della frase inserita: \n");
+    printf("Valutazione complessiva della frase inserita: \n\n");
     printf("%d\n\n",sentenceEvaluation);
     if (sentenceEvaluation > 0)
     {

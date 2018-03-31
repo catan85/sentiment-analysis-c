@@ -197,6 +197,3 @@ void RemoveFromVocabulary(char * word, char * vocabularyFile)
     RemoveLineFromFile(word, vocabularyFile);
     free(destinationFile);
 }
-
-
-
