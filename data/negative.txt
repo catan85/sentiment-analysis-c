@@ -1,3 +1,5 @@
+furbetto
+freddo
 2-faced
 2-facce
 anormale
@@ -566,8 +568,6 @@ triste
 formaggio
 rimproverare
 infantile
-freddo
-freddo
 chintzy
 soffocare
 collerico
@@ -595,7 +595,6 @@ spavaldo
 costringere
 coercizione
 coercitivo
-freddo
 freddamente
 crollo
 agire in collusione
