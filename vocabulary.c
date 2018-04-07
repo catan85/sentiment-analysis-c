@@ -54,23 +54,29 @@ void LaunchVocabularyEditing(char * statement, char * vocabEditSplitter)
         current = strtok(NULL, vocabEditSplitter);
     }
 
+    free(destination);
+    free(word);
+
     if (StringContains(destination,"+"))
     {
-        printf("Adding to positive dictionary\n");
+        printf("Aggiunta al vocabolario delle parole positive..\n");
         AddWordToPositiveVocabulary(word);
     }else if(StringContains(destination, "-"))
     {
-        printf("Adding to negative dictionary\n");
+        printf("Aggiunta al vocabolario delle parole negative..\n");
         AddWordToNegativeVocabulary(word);
     }else if(StringContains(destination, "0"))
     {
-        printf("Adding to ignore dictionary\n");
+        printf("Aggiunta al vocabolario delle parole da ignorare..\n");
         AddWordToIgnoreVocabulary(word);
+    }else{
+        printf("Errore: attributo non riconosciuto.\n\n\n");
+        return;
     }
-    free(destination);
-    free(word);
-    printf("Vocabolari aggiornati.\n");
+
+    printf("Editing vocabolari completato.\n");
     printf("\n\n");
+
 }
 
 
