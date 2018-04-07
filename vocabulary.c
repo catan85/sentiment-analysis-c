@@ -54,8 +54,7 @@ void LaunchVocabularyEditing(char * statement, char * vocabEditSplitter)
         current = strtok(NULL, vocabEditSplitter);
     }
 
-    free(destination);
-    free(word);
+
 
     if (StringContains(destination,"+"))
     {
@@ -69,14 +68,16 @@ void LaunchVocabularyEditing(char * statement, char * vocabEditSplitter)
     {
         printf("Aggiunta al vocabolario delle parole da ignorare..\n");
         AddWordToIgnoreVocabulary(word);
-    }else{
+    }else
+    {
         printf("Errore: attributo non riconosciuto.\n\n\n");
-        return;
     }
 
     printf("Editing vocabolari completato.\n");
     printf("\n\n");
 
+    free(destination);
+    free(word);
 }
 
 
